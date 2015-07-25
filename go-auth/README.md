@@ -34,6 +34,22 @@ To run a containerized mysql database for your application use the following com
         -e MYSQL_PASSWORD=messenger \
         -p 3306:3306 mysql
         
+##### To Add a new User
+
+    curl -i -X PUT -d userid=USERNAME -d password=PASSWORD localhost:8080/user
+    
+##### To Delete a User
+
+    curl -i -X DELETE 'localhost:8080/user?userid=USERNAME&password=PASSWORD'
+    
+##### To Get an Auth Token
+
+    curl 'http://localhost:8080/token?userid=USERNAME&password=PASSWORD'
+
+##### To Verify an Auth Token
+
+    curl -i -X POST 'localhost:8080/token/USERNAME' --data "IHuzUHUuqCk5b5FVesX5LWBsqm8K...."
+
 ## Building
 
     # You only need to do this one

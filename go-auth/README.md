@@ -33,3 +33,10 @@ To run a containerized mysql database for your application use the following com
         -e MYSQL_USER=messenger \
         -e MYSQL_PASSWORD=messenger \
         -p 3306:3306 mysql
+        
+## Building
+
+    # You only need to do this one
+    docker build -t go-auth-builder build/
+    
+    docker run --rm -it -v $PWD:/go/src/github.com/usmanismail/go-messenger/go-auth/ go-auth-builder

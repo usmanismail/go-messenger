@@ -3,9 +3,9 @@ package user
 import (
 	"net/http"
 
-	"../database"
 	"code.google.com/p/go.crypto/bcrypt"
 	"github.com/op/go-logging"
+	"github.com/usmanismail/go-messenger/go-auth/database"
 )
 
 var log = logging.MustGetLogger("user")

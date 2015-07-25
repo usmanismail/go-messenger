@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"./app"
 	"github.com/codegangsta/cli"
+	"github.com/usmanismail/go-messenger/go-auth/app"
 	"github.com/usmanismail/go-messenger/go-auth/logger"
 )
 

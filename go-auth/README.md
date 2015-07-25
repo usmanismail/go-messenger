@@ -26,7 +26,7 @@
 	go-auth -l debug run --db-host 192.168.59.103 -p 8080
 
 
-To run a containerized mysql database for your application use the following commands:
+To run a containerized mysql database for your application use the following command:
 
     docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=rootpass \
         -e MYSQL_DATABASE=messenger \

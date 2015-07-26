@@ -53,6 +53,9 @@ To run a containerized mysql database for your application use the following com
 ## Building
 
     # You only need to do this one
-    docker build -t go-auth-builder build/
+    docker build -t go-builder ../build/
     
-    docker run --rm -it -v $PWD:/go/src/github.com/usmanismail/go-messenger/go-auth/ go-auth-builder
+    docker run --rm -it \
+        -v $PWD:/go/src/github.com/usmanismail/go-messenger/go-auth/ \
+        -e SOURCE_PATH=github.com/usmanismail/go-messenger/go-auth/ \
+        go-builder

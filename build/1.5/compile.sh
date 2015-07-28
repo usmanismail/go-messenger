@@ -5,5 +5,6 @@ cd /go/src/${SOURCE_PATH}
 echo "Downloading dependencies"
 godep restore
 echo "Building source"
+go test ./... 
 go build
 echo "Build Successful"

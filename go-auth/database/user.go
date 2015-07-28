@@ -5,7 +5,7 @@ import (
 )
 
 type UserData interface {
-	init() error
+	Init() error
 	SaveUser(string, []byte) error
 	DeleteUser(string) error
 	GetUser(string) ([]byte, error)
@@ -15,7 +15,7 @@ type UserDataS struct {
 	db *sql.DB
 }
 
-func (userData *UserDataS) init() error {
+func (userData *UserDataS) Init() error {
 	// Create Table if Missing
 	_, err := userData.db.Exec(
 		`CREATE TABLE IF NOT EXISTS user (

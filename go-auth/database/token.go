@@ -9,7 +9,7 @@ import (
 )
 
 type TokenData interface {
-	init() error
+	Init() error
 	CreateToken(string) (string, error)
 	ValidateToken(string, string) (int, error)
 }
@@ -18,7 +18,7 @@ type TokenDataS struct {
 	db *sql.DB
 }
 
-func (tokenData *TokenDataS) init() error {
+func (tokenData *TokenDataS) Init() error {
 	// Create Table if Missing
 	_, err := tokenData.db.Exec(
 		`CREATE TABLE IF NOT EXISTS token (

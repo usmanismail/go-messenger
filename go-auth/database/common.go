@@ -22,12 +22,12 @@ func Connect(provider string, user string, password string, dbHost string,
 		userData := UserDataS{db}
 		tokenData := TokenDataS{db}
 
-		err := userData.init()
+		err := userData.Init()
 		if err != nil {
 			return nil, nil, err
 		}
 
-		err = tokenData.init()
+		err = tokenData.Init()
 		if err != nil {
 			return nil, nil, err
 		}

@@ -1,0 +1,26 @@
+Goauth:
+  image: go-auth
+  ports:
+    - "8080:8080"
+  stdin_open: true
+  links:
+    - Database:db
+  command:
+    - "--db-host"
+    - "db"
+  tty: true
+
+Database:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: rootpass
+    MYSQL_DATABASE: messenger
+    MYSQL_USER: messenger
+    MYSQL_PASSWORD: messenger
+  expose:
+    - "3306"
+  ports:
+    - "3306:3306"
+  stdin_open: true
+  tty: true
+

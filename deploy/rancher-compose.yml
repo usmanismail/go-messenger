@@ -1,0 +1,8 @@
+auth-lb:
+  scale: 1
+  load_balancer_config:
+    name: auth-lb config
+mysql-master:
+  scale: 1
+auth-service:
+  scale: 1

@@ -1,0 +1,38 @@
+auth-lb:
+  expose:
+  - 8080:8080
+  ports:
+  - 8080
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - auth-service:auth-service
+  stdin_open: true
+mysql-master:
+  environment:
+    MYSQL_ROOT_PASSWORD: rootpass
+    MYSQL_DATABASE: messenger
+    MYSQL_USER: messenger
+    MYSQL_PASSWORD: messenger
+  tty: true
+  image: mysql
+  stdin_open: true
+auth-service:
+  tty: true
+  command:
+  - --db-host
+  - mysql-master
+  - --db-port
+  - '3306'
+  - --db-user
+  - messenger
+  - --db-password
+  - messenger
+  - --database
+  - messenger
+  - -p
+  - '8080'
+  image: mbsheikh/go-messenger
+  links:
+  - mysql-master:mysql-master
+  stdin_open: true

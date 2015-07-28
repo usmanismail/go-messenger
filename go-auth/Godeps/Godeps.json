@@ -8,6 +8,11 @@
 			"Rev": "69e2a90ed92d03812364aeb947b7068dc42e561e"
 		},
 		{
+			"ImportPath": "github.com/stretchr/testify",
+			"Comment": "Merge pull request #186 from MCProHosting/master",
+			"Rev": "089c7181b8c728499929ff09b62d3fdd8df8adff"
+		},
+		{
 			"ImportPath": "github.com/codegangsta/cli",
 			"Comment": "1.2.0-66-g6086d79",
 			"Rev": "6086d7927ec35315964d9fea46df6c04e6d697c1"

@@ -1,8 +1,8 @@
 auth-lb:
   expose:
-  - 8080:8080
+  - 9090:9000
   ports:
-  - 8080
+  - 9000
   tty: true
   image: rancher/load-balancer-service
   links:
@@ -31,7 +31,7 @@ auth-service:
   - --database
   - messenger
   - -p
-  - '8080'
+  - '9000'
   image: mbsheikh/go-messenger
   links:
   - mysql-master:mysql-master

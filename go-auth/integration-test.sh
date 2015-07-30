@@ -1,23 +1,31 @@
-#!/bin/sh
+#!/bin/bash
 
 function quit {
 	docker-compose stop
 	docker-compose rm -f
-    exit $1
+	exit $1
 }
 
+set -x
+
 docker-compose up -d
-# make sure database is rady
-sleep 10
+# make sure database is ready
+docker-compose start Database
+
+sleep 20
 # makes sure all containers are started
-docker-compose start
+docker-compose start Goauth
 
-sleep 3
-docker-compose start
+sleep 10
 
+service_container=$(docker ps -a | awk '{ print $1,$2 }' | grep go-auth | awk '{print $1 }')
 
-first=$(curl -i -silent -X PUT -d userid=USERNAME -d password=PASSWORD $(boot2docker ip):8080/user | grep "HTTP/1.1")
-second=$(curl -i -silent -X PUT -d userid=USERNAME -d password=PASSWORD $(boot2docker ip):8080/user | grep "HTTP/1.1")
+echo $service_container
+
+service_ip=$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' ${service_container})
+
+first=$(curl -i -silent -X PUT -d userid=USERNAME -d password=PASSWORD ${service_ip}:8080/user | grep "HTTP/1.1")
+second=$(curl -i -silent -X PUT -d userid=USERNAME -d password=PASSWORD ${service_ip}:8080/user | grep "HTTP/1.1")
 
 status_first=$(echo "$first" | cut -f 2 -d ' ')
 status_second=$(echo "$second" | cut -f 2 -d ' ')

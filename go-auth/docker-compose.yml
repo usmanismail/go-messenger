@@ -1,7 +1,7 @@
 Goauth:
   image: go-auth
   ports:
-    - "8080:8080"
+    - "9000:9000"
   stdin_open: true
   links:
     - Database:db

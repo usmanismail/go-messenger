@@ -24,8 +24,8 @@ echo $service_container
 
 service_ip=$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' ${service_container})
 
-first=$(curl -i -silent -X PUT -d userid=USERNAME -d password=PASSWORD ${service_ip}:8080/user | grep "HTTP/1.1")
-second=$(curl -i -silent -X PUT -d userid=USERNAME -d password=PASSWORD ${service_ip}:8080/user | grep "HTTP/1.1")
+first=$(curl -i -silent -X PUT -d userid=USERNAME -d password=PASSWORD ${service_ip}:9000/user | grep "HTTP/1.1")
+second=$(curl -i -silent -X PUT -d userid=USERNAME -d password=PASSWORD ${service_ip}:9000/user | grep "HTTP/1.1")
 
 status_first=$(echo "$first" | cut -f 2 -d ' ')
 status_second=$(echo "$second" | cut -f 2 -d ' ')

@@ -4,7 +4,10 @@ set -e
 cd /go/src/${SOURCE_PATH}
 echo "Downloading dependencies"
 godep restore
-echo "Building source"
+echo "Fix formatting"
+go fmt ./...
+echo "Running Tests"
 go test ./... 
+echo "Building source"
 go build
 echo "Build Successful"

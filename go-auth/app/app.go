@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -23,15 +24,21 @@ type GoAuthS struct {
 var log = logging.MustGetLogger("app")
 
 func NewApplication(dbUser string, dbPassword string, databaseName string,
-	dbHost string, dbPort int, port int) (GoAuth, error) {
+	dbHost string, dbPort int, port int) GoAuth {
 
-	log.Debug("Connection to database %s:%d\n", dbHost, dbPort)
-	userDB, tokenDB, err := database.Connect("mysql", dbUser, dbPassword, dbHost, dbPort, databaseName)
-	if err != nil {
-		return nil, err
-	} else {
-		return &GoAuthS{port, userDB, tokenDB}, nil
+	err := errors.New("No connection")
+	var userDB database.UserData
+	var tokenDB database.TokenData
+	for err != nil {
+		log.Debug("Connecting to database %s:%d\n", dbHost, dbPort)
+		userDB, tokenDB, err = database.Connect("mysql", dbUser, dbPassword, dbHost, dbPort, databaseName)
+		if err != nil {
+			fmt.Printf("Unable to connecto to database: %s. Retrying...\n", err.Error())
+		}
 	}
+
+	fmt.Printf("Connected to database")
+	return &GoAuthS{port, userDB, tokenDB}
 }
 
 func (s *GoAuthS) Run() {

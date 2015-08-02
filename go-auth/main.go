@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/codegangsta/cli"
@@ -40,11 +39,9 @@ func getRunCommand() cli.Command {
 			return
 		}
 
-		goAuthApp, err := app.NewApplication(c.String("db-user"), c.String("db-password"),
+		goAuthApp := app.NewApplication(c.String("db-user"), c.String("db-password"),
 			c.String("database"), c.String("db-host"), c.Int("db-port"), c.Int("port"))
-		if err != nil {
-			log.Fatalf("Unable to start application %s", err.Error())
-		}
+
 		goAuthApp.Run()
 
 	}

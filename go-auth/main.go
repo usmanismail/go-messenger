@@ -22,13 +22,18 @@ func main() {
 			Usage: "The log level to use",
 			Value: "Info",
 		},
+		cli.StringFlag{
+			Name:  "log-type, t",
+			Usage: "The log type to use. console or syslog",
+			Value: "console",
+		},
 	}
 	cliApp.Run(os.Args)
 
 }
 
 func cliApplicationAction(c *cli.Context) {
-	logger.SetupLogging(c.GlobalString("log-level"))
+	logger.SetupLogging(c.GlobalString("log-level"), c.GlobalString("log-type"))
 }
 func getRunCommand() cli.Command {
 

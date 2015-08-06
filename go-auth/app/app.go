@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/op/go-logging"
@@ -33,11 +34,12 @@ func NewApplication(dbUser string, dbPassword string, databaseName string,
 		log.Debug("Connecting to database %s:%d\n", dbHost, dbPort)
 		userDB, tokenDB, err = database.Connect("mysql", dbUser, dbPassword, dbHost, dbPort, databaseName)
 		if err != nil {
-			fmt.Printf("Unable to connecto to database: %s. Retrying...\n", err.Error())
+			log.Debug("Unable to connecto to database: %s. Retrying...\n", err.Error())
+			time.Sleep(5 * time.Second)
 		}
 	}
 
-	fmt.Printf("Connected to database")
+	log.Debug("Connected to database")
 	return &GoAuthS{port, userDB, tokenDB}
 }
 

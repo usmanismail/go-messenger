@@ -21,6 +21,7 @@
 	   help, h	Shows a list of commands or help for one command
 
 	GLOBAL OPTIONS:
+	   --log-type -t "syslog, console"
 	   --log-level, -l "Info"	The log level to use
 	   --help, -h			show help
 	   --version, -v		print the version

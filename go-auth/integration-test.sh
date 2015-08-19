@@ -8,6 +8,7 @@ function quit {
 
 docker-compose up -d
 
+docker logs goauth_Goauth_1
 
 # Make sure containers are ready for the test
 sleep 20

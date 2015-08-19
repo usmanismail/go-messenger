@@ -1,13 +1,20 @@
 Goauth:
-  image: go-auth
+  image: usman/go-auth
   ports:
     - "9000:9000"
   stdin_open: true
   links:
     - Database:db
   command:
+    - "-l"
+    - "debug"
+    - "-t"
+    - "console"
+    - "run"
     - "--db-host"
     - "db"
+    - "-p"
+    - "9000"
   tty: true
 
 Database:

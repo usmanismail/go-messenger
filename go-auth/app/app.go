@@ -49,6 +49,7 @@ func (s *GoAuthS) Run() {
 	r.HandleFunc("/user", s.deleteUser).Methods("DELETE")
 	r.HandleFunc("/token", s.getToken).Methods("GET")
 	r.HandleFunc("/token/{username}", s.verifyToken).Methods("POST")
+	r.HandleFunc("/health", s.getHealth).Methods("GET")
 	http.Handle("/", r)
 	log.Debug("Listening on port %d", s.port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", s.port), nil)
@@ -74,6 +75,11 @@ func (s *GoAuthS) deleteUser(w http.ResponseWriter, r *http.Request) {
 	if status != 200 {
 		http.Error(w, "Unable to delete user.", status)
 	}
+}
+
+func (s *GoAuthS) getHealth(w http.ResponseWriter, r *http.Request) {
+	log.Info("Get Health Called")
+	w.Write([]byte("ok"))
 }
 
 func (s *GoAuthS) getToken(w http.ResponseWriter, r *http.Request) {

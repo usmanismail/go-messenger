@@ -1,8 +1,10 @@
 auth-lb:
-  expose:
-  - 9090:9000
   ports:
-  - 9000
+  - '9000'
+  - '9001'
+  labels:
+    io.rancher.loadbalancer.ssl.ports: '9001'
+    io.rancher.loadbalancer.target.auth-service: 9000=9000,9001=9000
   tty: true
   image: rancher/load-balancer-service
   links:

@@ -1,11 +1,16 @@
 auth-service:
-  tty: true
   command:
-  - --db-host
-  - mysql-master
-  - -p
-  - '9000'
-  image: usman/go-messenger
+    - "-l"
+    - "debug"
+    - "-t"
+    - "console"
+    - "run"
+    - "--db-host"
+    - "db"
+    - "-p"
+    - "9000"
+  tty: true
+  image: usman/go-auth
   links:
   - mysql-master:mysql-master
   stdin_open: true

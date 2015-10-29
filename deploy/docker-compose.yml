@@ -1,19 +1,19 @@
 auth-service:
-  command:
+    tty: true
+    command:
     - "-l"
     - "debug"
     - "-t"
     - "console"
     - "run"
     - "--db-host"
-    - "db"
+    - "mysql-master"
     - "-p"
     - "9000"
-  tty: true
-  image: usman/go-auth
-  links:
-  - mysql-master:mysql-master
-  stdin_open: true
+    image: usman/go-auth
+    stdin_open: true
+    links:
+    - mysql-master:mysql-master
 
 auth-lb:
   ports:

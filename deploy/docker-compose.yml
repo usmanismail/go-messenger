@@ -10,7 +10,7 @@ auth-service:
     - "mysql-master"
     - "-p"
     - "9000"
-    image: usman/go-auth
+    image: usman/go-auth:${auth_version}
     stdin_open: true
     links:
     - mysql-master:mysql-master

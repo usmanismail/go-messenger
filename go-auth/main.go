@@ -59,7 +59,7 @@ func getRunCommand() cli.Command {
 				log.Fatal("Unable to open password file: ", err)
 			}
 			log.Debug("Read password from file. %d bytes\n", readBytes)
-			dbPassword = string(passwordBytes)
+			dbPassword = string(passwordBytes[:readBytes])
 		} else {
 			dbPassword = c.String("db-password")
 		}

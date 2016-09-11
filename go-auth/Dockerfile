@@ -1,5 +1,6 @@
 FROM ubuntu
 
+RUN apt-get update && apt-get install -y mysql-client
 ADD ./go-auth /bin/go-auth
 
 EXPOSE 9000

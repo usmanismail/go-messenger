@@ -31,10 +31,10 @@ func NewApplication(dbUser string, dbPassword string, databaseName string,
 	var userDB database.UserData
 	var tokenDB database.TokenData
 	for err != nil {
-		log.Debug("Connecting to database %s:%d\n", dbHost, dbPort)
+		log.Debug("Connecting to database %s%s:%d using %s\\%s\n", databaseName, dbHost, dbPort, dbUser, dbPassword)
 		userDB, tokenDB, err = database.Connect("mysql", dbUser, dbPassword, dbHost, dbPort, databaseName)
 		if err != nil {
-			log.Debug("Unable to connecto to database: %s. Retrying...\n", err.Error())
+			log.Debug("Unable to connect to to database: %s. Retrying...\n", err.Error())
 			time.Sleep(5 * time.Second)
 		}
 	}

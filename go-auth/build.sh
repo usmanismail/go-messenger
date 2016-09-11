@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 
 docker run --rm -it \
     -v $PWD:/go/src/github.com/usmanismail/go-messenger/go-auth/ \

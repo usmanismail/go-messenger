@@ -4,9 +4,12 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
+	"github.com/op/go-logging"
 	"github.com/usmanismail/go-messenger/go-auth/app"
 	"github.com/usmanismail/go-messenger/go-auth/logger"
 )
+
+var log = logging.MustGetLogger("main")
 
 func main() {
 
@@ -44,7 +47,24 @@ func getRunCommand() cli.Command {
 			return
 		}
 
-		goAuthApp := app.NewApplication(c.String("db-user"), c.String("db-password"),
+		var dbPassword string
+		if c.IsSet("db-password-file") {
+			f, err := os.Open(c.String("db-password-file"))
+			if err != nil {
+				log.Fatal("Unable to open password file: ", err)
+			}
+			passwordBytes := make([]byte, 50)
+			readBytes, err := f.Read(passwordBytes)
+			if err != nil {
+				log.Fatal("Unable to open password file: ", err)
+			}
+			log.Debug("Read password bytes %d %s\n", readBytes, string(passwordBytes))
+			dbPassword = string(passwordBytes)
+		} else {
+			dbPassword = c.String("db-password")
+		}
+
+		goAuthApp := app.NewApplication(c.String("db-user"), dbPassword,
 			c.String("database"), c.String("db-host"), c.Int("db-port"), c.Int("port"))
 
 		goAuthApp.Run()
@@ -76,6 +96,10 @@ func getRunCommand() cli.Command {
 			Name:  "db-password",
 			Usage: "The Database Password",
 			Value: "messenger",
+		},
+		cli.StringFlag{
+			Name:  "db-password-file",
+			Usage: "The Database Password File",
 		},
 		cli.StringFlag{
 			Name:  "database",

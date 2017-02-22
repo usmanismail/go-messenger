@@ -1,11 +1,10 @@
 package user
 
 import (
-	"net/http"
-
-	"code.google.com/p/go.crypto/bcrypt"
 	"github.com/op/go-logging"
-	"github.com/usmanismail/go-messenger/go-auth/database"
+	"go-messenger/go-auth/database"
+	"golang.org/x/crypto/bcrypt"
+	"net/http"
 )
 
 var log = logging.MustGetLogger("user")

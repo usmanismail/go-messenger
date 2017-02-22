@@ -9,8 +9,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/op/go-logging"
-	"github.com/usmanismail/go-messenger/go-auth/database"
-	"github.com/usmanismail/go-messenger/go-auth/user"
+	"go-messenger/go-auth/database"
+	"go-messenger/go-auth/user"
 )
 
 type GoAuth interface {

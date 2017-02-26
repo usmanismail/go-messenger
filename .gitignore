@@ -22,3 +22,6 @@ go-auth/go-auth
 *.exe
 *.test
 *.prof
+
+# OS X
+.DS_Store

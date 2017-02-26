@@ -3,7 +3,8 @@ package user
 import (
 	"net/http"
 
-	"code.google.com/p/go.crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/op/go-logging"
 	"github.com/usmanismail/go-messenger/go-auth/database"
 )

@@ -1,8 +1,9 @@
 version: "3"
 
+
 services:
   Goauth:
-    image: usman/go-auth
+    image: usman/go-auth:${GO_AUTH_VERSION:-latest}
     ports:
       - "9000:9000"
     command:

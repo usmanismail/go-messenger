@@ -22,3 +22,6 @@ go-auth/go-auth
 *.exe
 *.test
 *.prof
+
+go-auth/vendor/*
+!vendor.json

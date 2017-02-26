@@ -3,7 +3,7 @@ set -e
 # Set directory to where we expect code to be
 cd /go/src/${SOURCE_PATH}
 echo "Downloading dependencies"
-godep restore
+govendor sync
 echo "Fix formatting"
 go fmt ./...
 echo "Running Tests"

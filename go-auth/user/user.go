@@ -50,7 +50,7 @@ func RegisterUser(userData database.UserData, userId string, password string) in
 			return http.StatusOK
 		}
 	} else {
-		log.Debug("Unable to create user, username or password missing")
+		log.Debugf("Unable to create user, username or password missing")
 		return http.StatusBadRequest
 	}
 }
@@ -71,7 +71,7 @@ func DeleteUser(userData database.UserData, userId string, password string) int 
 
 		}
 	} else {
-		log.Debug("Unable to delete user, username or password missing")
+		log.Debugf("Unable to delete user, username or password missing")
 		return http.StatusBadRequest
 	}
 }

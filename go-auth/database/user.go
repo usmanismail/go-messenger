@@ -26,7 +26,7 @@ func (userData *UserDataS) Init() error {
 	if err != nil {
 		return err
 	} else {
-		log.Debug("Created User Table")
+		log.Debugf("Created User Table")
 		return nil
 	}
 }
@@ -55,10 +55,10 @@ func (userData *UserDataS) GetUser(userId string) ([]byte, error) {
 	var passwordHash []byte
 	err := userData.db.QueryRow("select password from user where userid = ?", userId).Scan(&passwordHash)
 	if err != nil {
-		log.Info("Error %s", err.Error())
+		log.Infof("Error %s", err.Error())
 		return nil, err
 	} else {
-		log.Info("User Exists %s", userId)
+		log.Infof("User Exists %s", userId)
 		return passwordHash, nil
 	}
 }

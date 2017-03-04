@@ -1,6 +1,5 @@
 version: "3"
 
-
 services:
   Goauth:
     image: usman/go-auth:${GO_AUTH_VERSION:-latest}
@@ -22,3 +21,5 @@ services:
       MYSQL_DATABASE: messenger
       MYSQL_USER: messenger
       MYSQL_PASSWORD: messenger
+
+      

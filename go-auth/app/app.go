@@ -31,15 +31,15 @@ func NewApplication(dbUser string, dbPassword string, databaseName string,
 	var userDB database.UserData
 	var tokenDB database.TokenData
 	for err != nil {
-		log.Debug("Connecting to database %s:%d\n", dbHost, dbPort)
+		log.Debugf("Connecting to database %s:%d\n", dbHost, dbPort)
 		userDB, tokenDB, err = database.Connect("mysql", dbUser, dbPassword, dbHost, dbPort, databaseName)
 		if err != nil {
-			log.Debug("Unable to connecto to database: %s. Retrying...\n", err.Error())
+			log.Debugf("Unable to connecto to database: %s. Retrying...\n", err.Error())
 			time.Sleep(5 * time.Second)
 		}
 	}
 
-	log.Debug("Connected to database")
+	log.Debugf("Connected to database")
 	return &GoAuthS{port, userDB, tokenDB}
 }
 
@@ -51,7 +51,7 @@ func (s *GoAuthS) Run() {
 	r.HandleFunc("/token/{username}", s.verifyToken).Methods("POST")
 	r.HandleFunc("/health", s.getHealth).Methods("GET")
 	http.Handle("/", r)
-	log.Debug("Listening on port %d", s.port)
+	log.Debugf("Listening on port %d", s.port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", s.port), nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
@@ -68,7 +68,7 @@ func (s *GoAuthS) putUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *GoAuthS) deleteUser(w http.ResponseWriter, r *http.Request) {
-	log.Info("Delete User Called")
+	log.Infof("Delete User Called")
 	userId := r.FormValue("userid")
 	password := r.FormValue("password")
 	status := user.DeleteUser(s.userData, userId, password)
@@ -78,12 +78,12 @@ func (s *GoAuthS) deleteUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *GoAuthS) getHealth(w http.ResponseWriter, r *http.Request) {
-	log.Info("Get Health Called")
+	log.Infof("Get Health Called")
 	w.Write([]byte("ok"))
 }
 
 func (s *GoAuthS) getToken(w http.ResponseWriter, r *http.Request) {
-	log.Info("Get Token Called")
+	log.Infof("Get Token Called")
 	userId := r.FormValue("userid")
 	password := r.FormValue("password")
 
@@ -109,7 +109,7 @@ func (s *GoAuthS) getToken(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *GoAuthS) verifyToken(w http.ResponseWriter, r *http.Request) {
-	log.Info("Verify Token Called")
+	log.Infof("Verify Token Called")
 	vars := mux.Vars(r)
 	username := vars["username"]
 	token, err := ioutil.ReadAll(r.Body)

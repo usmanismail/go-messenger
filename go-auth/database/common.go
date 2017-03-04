@@ -18,7 +18,7 @@ func Connect(provider string, user string, password string, dbHost string,
 	if err != nil {
 		return nil, nil, err
 	} else {
-		log.Debug("Connected to DB %s:%d/%s", dbHost, dbPort, dbname)
+		log.Debugf("Connected to DB %s:%d/%s", dbHost, dbPort, dbname)
 		userData := UserDataS{db}
 		tokenData := TokenDataS{db}
 

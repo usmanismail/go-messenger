@@ -16,7 +16,7 @@ if [ "$(uname -s)" = "Darwin" ] ; then
 	service_ip=$(docker-machine url $(docker-machine active) | cut -d : -f 2 | cut -c 3-)
 else 
 	service_container=$(docker ps -a | awk '{ print $1,$2 }' | grep go-auth | awk '{print $1 }')
-	service_ip=$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' ${service_container})
+	service_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${service_container})
 fi
 
 echo "Using Service IP $service_ip"

@@ -1,39 +1,27 @@
-auth-service:
-    tty: true
+version: 2
+services:
+  Goauth:
+    image: usman/go-auth:1.8
     command:
-    - "-l"
-    - "debug"
-    - "-t"
-    - "console"
-    - "run"
-    - "--db-host"
-    - "mysql-master"
-    - "-p"
-    - "9000"
-    image: usman/go-auth:${auth_version}
-    stdin_open: true
-    links:
-    - mysql-master:mysql-master
+      - "-l"
+      - "debug"
+      - "run"
+      - "--db-host"
+      - "db"
+      - "-p"
+      - "9000"
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: messenger
+      MYSQL_USER: messenger
+      MYSQL_PASSWORD: messenger
 
-auth-lb:
-  ports:
-  - '9000'
-  - '9001'
-  labels:
-    io.rancher.loadbalancer.ssl.ports: '9001'
-    io.rancher.loadbalancer.target.auth-service: 9000=9000,9001=9000
-  tty: true
-  image: rancher/load-balancer-service
-  links:
-  - auth-service:auth-service
-  stdin_open: true
-
-mysql-master:
-  environment:
-    MYSQL_ROOT_PASSWORD: rootpass
-    MYSQL_DATABASE: messenger
-    MYSQL_USER: messenger
-    MYSQL_PASSWORD: messenger
-  tty: true
-  image: mysql
-  stdin_open: true
+  auth-lb:
+    image: rancher/lb-service-haproxy:v0.6.2
+    ports:
+    - 9000:9000/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'

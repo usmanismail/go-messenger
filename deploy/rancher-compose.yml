@@ -1,16 +1,34 @@
-auth-lb:
-  scale: 1
-  load_balancer_config:
-    name: auth-lb config
-  default_cert: test.techtraits.com_self_signed
-mysql-master:
-  scale: 1
-auth-service:
-  scale: 1
-  health_check:
-    port: 9000
-    interval: 2000
-    unhealthy_threshold: 3
-    request_line: GET /health HTTP/1.0
-    healthy_threshold: 2 
-    response_timeout: 2000
+version: '2'
+services:
+  Goauth:
+    scale: 1
+    start_on_create: true
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 9000
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      request_line: GET "/health" "HTTP/1.0"
+      reinitializing_timeout: 6000  
+  auth-lb:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - priority: 1
+        protocol: http
+        service: Goauth
+        source_port: 9000
+        target_port: 9000
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 42
+      unhealthy_threshold: 3
+      interval: 2000
+  db:
+    scale: 1
+    start_on_create: true
